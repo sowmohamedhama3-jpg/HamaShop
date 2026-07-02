@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div style="text-align:center; margin-top:100px;">
+    <h1>🔐 Connexion Admin</h1>
+
+    <input id="user" placeholder="Nom d'utilisateur" style="padding:10px; width:250px;"><br><br>
+    <input id="pass" type="password" placeholder="Mot de passe" style="padding:10px; width:250px;"><br><br>
+
+    <button onclick="login()">Se connecter</button>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+function login(){
+    let user = document.getElementById("user").value;
+    let pass = document.getElementById("pass").value;
+
+    fetch("http://127.0.0.1:5000/login", {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({user, pass})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success){
+            localStorage.setItem("token", data.token);
+            window.location.href = "admin.html";
+        } else {
+            document.getElementById("msg").innerText = "❌ Identifiants incorrects";
+        }
+    });
+}
+</script>
+
+</body>
+</html>

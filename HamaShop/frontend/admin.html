@@ -1,0 +1,125 @@
+if(!localStorage.getItem("token")){
+    window.location.href = "login.html";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - HamaShop</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+        }
+
+        header{
+            background:#111;
+            color:white;
+            padding:20px;
+        }
+
+        .container{
+            padding:30px;
+        }
+
+        .card{
+            background:white;
+            padding:15px;
+            margin-bottom:10px;
+            border-radius:10px;
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .stats{
+            display:flex;
+            gap:20px;
+            margin-bottom:20px;
+        }
+
+        .box{
+            flex:1;
+            background:#1976d2;
+            color:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        button{
+            background:red;
+            color:white;
+            border:none;
+            padding:8px;
+            border-radius:5px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🧑‍💼 Dashboard Admin - HamaShop</h1>
+</header>
+
+<div class="container">
+
+    <div class="stats">
+        <div class="box">
+            <h2 id="totalCommandes">0</h2>
+            <p>Commandes</p>
+        </div>
+
+        <div class="box">
+            <h2 id="revenuTotal">0 FCFA</h2>
+            <p>Revenu total</p>
+        </div>
+    </div>
+
+    <h2>📦 Liste des commandes</h2>
+
+    <div id="commandes"></div>
+
+</div>
+
+<script>
+let token = localStorage.getItem("token");
+
+fetch("http://127.0.0.1:5000/commandes", {
+    headers: {
+        "Authorization": token
+    }
+})
+.then(res => res.json())
+.then(data => {
+    if(data.error){
+        alert("Accès refusé");
+        window.location.href = "login.html";
+        return;
+    }
+
+    let container = document.getElementById("commandes");
+    let total = 0;
+
+    document.getElementById("totalCommandes").innerText = data.length;
+
+    data.forEach(cmd => {
+        total += cmd[3];
+
+        let div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <p><b>ID:</b> ${cmd[0]}</p>
+            <p><b>Nom:</b> ${cmd[1]}</p>
+            <p><b>Numéro:</b> ${cmd[2]}</p>
+            <p><b>Total:</b> ${cmd[3]} FCFA</p>
+        `;
+
+        container.appendChild(div);
+    });
+
+    document.getElementById("revenuTotal").innerText = total + " FCFA";
+});

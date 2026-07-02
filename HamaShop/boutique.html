@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - HamaShop</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>🛒 HamaShop</h1>
+
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="panier.html">Panier</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<main class="produits">
+
+    <div class="carte">
+        <img src="images/telephone.jpg" alt="Téléphone">
+        <h3>Samsung Galaxy</h3>
+        <p>150 000 FCFA</p>
+        <button onclick="ajouterPanier('Samsung Galaxy', 150000)">Ajouter au panier</button>
+    </div>
+
+    <div class="carte">
+        <img src="images/pc.jpg" alt="Ordinateur">
+        <h3>Ordinateur Portable</h3>
+        <p>350 000 FCFA</p>
+        <button onclick="ajouterPanier('Samsung Galaxy', 150000)">Ajouter au panier</button>
+    </div>
+
+    <div class="carte">
+        <img src="images/casque.jpg" alt="Casque">
+        <h3>Casque Bluetooth</h3>
+        <p>25 000 FCFA</p>
+        <button onclick="ajouterPanier('Samsung Galaxy', 150000)">Ajouter au panier</button>
+    </div>
+
+</main>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
